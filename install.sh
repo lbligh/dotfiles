@@ -18,8 +18,8 @@ dotfiledir=${homedir}/dotfiles
 # list of files/folders to symlink in ${homedir}
 files="bash_profile bashrc bash_prompt aliases exports functions"
 
-# echo "Creating an SSH key for you..."
-# ssh-keygen -t ecdsa -b 521
+echo "Creating an SSH key for you..."
+ssh-keygen -t ecdsa -b 521
 
 echo "Please add this public key to Github \n"
 echo "https://github.com/account/ssh \n"
@@ -55,9 +55,6 @@ for file in ${files}; do
     ln -sf ${dotfiledir}/.${file} ${homedir}/.${file}
 done
 
-echo "Changing to the ${home_directory} directory"
-cd ${home_directory}
-echo "...done"
 
 echo "Git config"
 
@@ -69,6 +66,7 @@ git config --global user.email lucius@lucius.org.uk
 curl "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash" > ${homedir}/.git-completion.bash
 
 # Run the Homebrew Script
+echo "Running Homebrew Script"
 ./brew.sh
 
 # Run the Sublime Script

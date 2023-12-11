@@ -11,6 +11,7 @@ brew install trash
 brew install svn
 brew install mackup
 brew install node
+brew install docker
 
 echo "Cleaning up brew"
 brew cleanup
