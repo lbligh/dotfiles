@@ -25,9 +25,8 @@ echo "Please add this public key to Github \n"
 echo "https://github.com/account/ssh \n"
 read -p "Press [Enter] key after this..."
 
-# Done by homebrew
-# echo "Installing xcode-stuff"
-# xcode-select --install
+echo "Installing xcode-stuff"
+xcode-select --install
 
 # Check for Homebrew,
 # Install if we don't have it
