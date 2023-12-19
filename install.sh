@@ -18,12 +18,12 @@ dotfiledir=${homedir}/dotfiles
 # list of files/folders to symlink in ${homedir}
 files="bash_profile bashrc bash_prompt aliases exports functions"
 
-echo "Creating an SSH key for you..."
-ssh-keygen -t ecdsa -b 521
+# echo "Creating an SSH key for you..."
+# ssh-keygen -t ecdsa -b 521
 
-echo "Please add this public key to Github \n"
-echo "https://github.com/account/ssh \n"
-read -p "Press [Enter] key after this..."
+# echo "Please add this public key to Github \n"
+# echo "https://github.com/account/ssh \n"
+# read -p "Press [Enter] key after this..."
 
 echo "Installing xcode-stuff"
 xcode-select --install
@@ -68,8 +68,9 @@ curl "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-co
 echo "Running Homebrew Script"
 ./brew.sh
 
-# Run the Sublime Script
-# ./sublime.sh
+# Run the VSCode Script
+echo "Running VSCode Script"
+./vscode.sh
 
 echo "Please setup and sync Dropbox, and then run this script again."
 read -p "Press [Enter] key after this..."

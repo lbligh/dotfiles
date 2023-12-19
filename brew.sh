@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Install Brew Packages
-
+echo "Installing Python"
 brew install python
 
 echo "Installing other brew stuff..."
@@ -16,14 +16,8 @@ brew install docker
 echo "Cleaning up brew"
 brew cleanup
 
-echo "Installing homebrew cask"
-brew install caskroom/cask/brew-cask
 
-# Install Source Code Pro Font
-brew tap homebrew/cask-fonts
-brew cask install font-source-code-pro
-
-ps=(
+packages=(
   alfred
   bartender
   dropbox
@@ -36,14 +30,19 @@ ps=(
   onepassword
   discord
   gimp
+  visual-studio-code
 )
 
-# Install apps to /Applications
-# Default is: /Users/$user/Applications
+
 echo "installing apps with Cask..."
-brew cask install --appdir="/Applications" ${apps[@]}
 
-brew cask alfred link
+for i in ${packages[*]} 
+do 
+ brew install --cask "$i"
+ #echo $i
+done
 
-brew cask cleanup
+
+#brew alfred link
+
 brew cleanup
