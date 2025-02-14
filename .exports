@@ -11,3 +11,6 @@ export MANPAGER='less -X';
 
 # Hide the “default interactive shell is now zsh” warning on macOS.
 export BASH_SILENCE_DEPRECATION_WARNING=1;
+
+# Set ARMGCC_DIR for 4B25 CW
+export ARMGCC_DIR=/Users/lzb/Library/CloudStorage/OneDrive-UniversityofCambridge/Documents/IIB/4B25/bare-metal-arm/gcc-arm

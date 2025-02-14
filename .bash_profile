@@ -9,10 +9,9 @@ for file in ~/.{bash_prompt,aliases,exports,functions}; do
 done;
 unset file;
 
-# Setting PATH for Python 2.7
-# The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}";
-export PATH;
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 
 export PATH=/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$PATH;
@@ -23,10 +22,13 @@ export CHANGE_VOLUME=true;
 
 # Setting PATH for Python 3.9
 # The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.9/bin:${PATH}"
-export PATH
+# PATH="/Library/Frameworks/Python.framework/Versions/3.9/bin:${PATH}"
+# export PATH
 
+export PATH="$PATH:"/Applications/microchip/xc8/v2.45/bin""
+export PATH=$PATH:/usr/local/share/pk2
 
+eval "$(pyenv virtualenv-init -)"
 
 
 #enabling itermplot
@@ -68,6 +70,10 @@ elif [ -f /etc/bash_completion ]; then
 	source /etc/bash_completion;
 fi;
 
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
+
 # Enable tab completion for `g` by marking it as an alias for `git`
 if type _git &> /dev/null; then
 	complete -o default -o nospace -F _git g;
@@ -86,3 +92,6 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 #. "$HOME/.cargo/env"
 
 export PATH="$PATH:"/Applications/microchip/xc8/v2.45/bin""
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
