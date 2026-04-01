@@ -25,7 +25,11 @@ fi
 
 export EDITOR=/usr/local/bin/emacs
 
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
 

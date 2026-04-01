@@ -2,7 +2,7 @@ source "${HOME}/dotfiles/.shared_prompt"
 
 PS1="\[\e]0;\u@\h: \w\a"  # terminal window title
 PS1+="\$(prompt_venv)"    # virtual environment
-PS1+="\[${bold}\]\n"      # newline
+PS1+="\[${bold}\]"        # newline
 PS1+="\[${userStyle}\]\u" # username
 PS1+="\[${white}\]@"
 PS1+="\[${hostStyle}\]\h" # host

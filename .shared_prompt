@@ -22,7 +22,7 @@ prompt_git() {
 
         [ -n "${git_status}" ] && git_status=" [${git_status}]"
 
-        printf "%b on %b%s%s" "${white}" "${blue}" "${branchName}" "${git_status}"
+        printf "%b on %b%s%s%s" "${white}" "${blue}" "${branchName}" "${red}" "${git_status}"
     else
         return
     fi
@@ -33,7 +33,7 @@ prompt_venv() {
     if [[ -n "$VIRTUAL_ENV" ]]; then
         # Extract the last directory name in the $VIRTUAL_ENV path
         venv_name=$(basename "$VIRTUAL_ENV")
-        printf "\n%b(%s)\n" "${steel_blue}" "${venv_name}"
+        printf "%b(%s)%b" "${steel_blue}" "${venv_name}" "\n "
     fi
 }
 
