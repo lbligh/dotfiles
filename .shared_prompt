@@ -22,7 +22,7 @@ prompt_git() {
 
         [ -n "${git_status}" ] && git_status=" [${git_status}]"
 
-        printf "%b on %b%s%s%s" "${white}" "${blue}" "${branchName}" "${red}" "${git_status}"
+        printf "%b on %b%s%s%s" "${white}" "${violet}" "${branchName}" "${red}" "${git_status}"
     else
         return
     fi
