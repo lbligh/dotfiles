@@ -1,66 +1,95 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-# Install VSCode Setup and Extensions Packages
-echo "Installing VSCode Extentions"
+# Check if Homebrew's bin exists and if it's not already in the PATH
+if [ -x "/opt/homebrew/bin/brew" ] && [[ ":$PATH:" != *":/opt/homebrew/bin:"* ]]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+fi
 
-
+# Install VS Code Extensions
 extensions=(
-charliermarsh.ruff
-cschlosser.doxdocgen
-eamodio.gitlens
-eirikpre.systemverilog
-esbenp.prettier-vscode
-James-Yu.latex-workshop
-jeff-hykin.better-cpp-syntax
-MathWorks.language-matlab
-ms-azuretools.vscode-docker
-ms-python.black-formatter
-ms-python.isort
-ms-python.pylint
-ms-python.python
-ms-python.vscode-pylance
-ms-toolsai.jupyter
-ms-toolsai.jupyter-keymap
-ms-toolsai.jupyter-renderers
-ms-toolsai.vscode-jupyter-cell-tags
-ms-toolsai.vscode-jupyter-slideshow
-ms-vscode-remote.remote-containers
-ms-vscode-remote.remote-ssh
-ms-vscode-remote.remote-wsl
-ms-vscode.cmake-tools
-ms-vscode.cpptools
-ms-vscode.cpptools-extension-pack
-ms-vscode.cpptools-themes
-ms-vscode.makefile-tools
-ms-vscode.remote-explorer
-ms-vscode.vscode-serial-monitor
-mshr-h.veriloghdl
-nickfode.latex-formatter
-platformio.platformio-ide
-puorc.awesome-vhdl
-redhat.java
-rjyoung.vscode-modern-vhdl-support
-scydact.pic-assembly
-tecosaur.latex-utilities
-twxs.cmake
-Vinrobot.vhdl-formatter
-VisualStudioExptTeam.intellicode-api-usage-examples
-VisualStudioExptTeam.vscodeintellicode
-vsciot-vscode.vscode-arduino
-vscjava.vscode-java-debug
-vscjava.vscode-java-dependency
-vscjava.vscode-java-pack
-vscjava.vscode-java-test
-vscjava.vscode-maven
+    almahdi.code-django
+    charliermarsh.ruff
+    cschlosser.doxdocgen
+    docker.docker
+    eamodio.gitlens
+    esbenp.prettier-vscode
+    foxundermoon.shell-format
+    github.vscode-pull-request-github
+    hossaini.bootstrap-intellisense
+    james-yu.latex-workshop
+    jeff-hykin.better-cpp-syntax
+    jgclark.vscode-todo-highlight
+    marus25.cortex-debug
+    mcu-debug.debug-tracker-vscode
+    mcu-debug.memory-view
+    mcu-debug.peripheral-viewer
+    mcu-debug.rtos-views
+    mechatroner.rainbow-csv
+    monosans.djlint
+    ms-azuretools.vscode-containers
+    ms-azuretools.vscode-docker
+    ms-python.debugpy
+    ms-python.pylint
+    ms-python.python
+    ms-python.vscode-pylance
+    ms-toolsai.jupyter
+    ms-toolsai.jupyter-keymap
+    ms-toolsai.jupyter-renderers
+    ms-toolsai.vscode-jupyter-cell-tags
+    ms-toolsai.vscode-jupyter-slideshow
+    ms-vscode-remote.remote-containers
+    ms-vscode-remote.remote-ssh
+    ms-vscode-remote.remote-ssh-edit
+    ms-vscode.cmake-tools
+    ms-vscode.cpp-devtools
+    ms-vscode.cpptools
+    ms-vscode.cpptools-extension-pack
+    ms-vscode.cpptools-themes
+    ms-vscode.makefile-tools
+    ms-vscode.remote-explorer
+    ms-vscode.vscode-serial-monitor
+    natizyskunk.sftp
+    njpwerner.autodocstring
+    otovo-oss.htmx-tags
+    paulober.pico-w-go
+    raspberry-pi.raspberry-pi-pico
+    redhat.vscode-xml
+    tamasfe.even-better-toml
+    tecosaur.latex-utilities
+    thinker.sort-json
+    yzhang.markdown-all-in-one
 )
 
+# Get a list of all currently installed extensions.
+installed_extensions=$(code --list-extensions)
 
-while read p; do
-  code --install-extension "$p"
-done <settings/extensions
+for extension in "${extensions[@]}"; do
+    if echo "$installed_extensions" | grep -qi "^$extension$"; then
+        echo "$extension is already installed. Skipping..."
+    else
+        echo "Installing $extension..."
+        code --install-extension "$extension"
+    fi
+done
 
-cp settings/VSCode-settings.json "/Users/lzb/Library/Application Support/Code/User/"
-mv /Users/lzb/Library/Application\ Support/Code/User/VSCode-settings.json /Users/lzb/Library/Application\ Support/Code/User/settings.json
+echo "VS Code extensions have been installed."
 
-cp settings/VSCode-Keybindings.json "/Users/lzb/Library/Application Support/Code/User/"
-mv /Users/lzb/Library/Application\ Support/Code/User/VSCode-Keybindings.json /Users/lzb/Library/Application\ Support/Code/User/keybindings.json
+# Define the target directory for VS Code user settings on macOS
+VSCODE_USER_SETTINGS_DIR="${HOME}/Library/Application Support/Code/User"
+
+# Check if VS Code settings directory exists
+if [ -d "$VSCODE_USER_SETTINGS_DIR" ]; then
+    # Copy your custom settings.json and keybindings.json to the VS Code settings directory
+    ln -sf "${HOME}/dotfiles/settings/VSCode-Settings.json" "${VSCODE_USER_SETTINGS_DIR}/settings.json"
+    ln -sf "${HOME}/dotfiles/settings/VSCode-Keybindings.json" "${VSCODE_USER_SETTINGS_DIR}/keybindings.json"
+
+    echo "VS Code settings and keybindings have been updated."
+else
+    echo "VS Code user settings directory does not exist. Please ensure VS Code is installed."
+fi
+
+# Open VS Code to sign-in to extensions
+code .
+echo "Login to extensions (Copilot, Grammarly, etc) within VS Code."
+echo "Press enter to continue..."
+read

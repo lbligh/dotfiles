@@ -1,4 +1,8 @@
+# If not running interactively, exit script
+[[ $- != *i* ]] && return
 
-[ -n "$PS1" ] && source ~/.bash_profile;
-. "$HOME/.cargo/env"
-
+# Load dotfiles:
+for file in ~/.{bash_prompt,aliases,private}; do
+    [ -r "$file" ] && [ -f "$file" ] && source "$file"
+done
+unset file
